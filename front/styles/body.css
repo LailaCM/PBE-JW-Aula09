@@ -1,0 +1,72 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--fundo-claro);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--texto-escuro);
+}
+
+.login-container {
+  background: var(--branco-puro);
+  padding: var(--padding-container);
+  border-radius: 12px;
+  box-shadow: var(--sombra-suave);
+  width: 320px;
+  transition: var(--transicao-padrao);
+
+  h2 {
+  text-align: left;
+}
+}
+
+.login-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+h2 {
+  text-align: left;
+  margin-bottom: var(--margin-titulo);
+  font-weight: 600;
+}
+
+.input-group {
+  margin-bottom: var(--margin-inputs);
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.9rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: var(--transicao-padrao);
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: var(--roxo-principal);
+  box-shadow: 0 0 0 3px rgba(123, 104, 238, 0.2);
+}
+
+button {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: var(--roxo-principal);
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transicao-padrao);
+  letter-spacing: 0.5px;
+}
+
+button:hover {
+  background-color: var(--roxo-escuro);
+  transform: translateY(-2px);
+}
