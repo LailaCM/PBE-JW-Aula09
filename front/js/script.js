@@ -1,20 +1,55 @@
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  const response = await fetch('http://localhost:3000/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      user: document.getElementById('email').value,
-      psw: document.getElementById('password').value
-    })
-  });
+import api from './api.js';
 
-  if (response.ok) {
-    const { token } = await response.json();
-    localStorage.setItem('token', token);
-    window.location.href = 'home.html';
-  } else {
-    alert('Login falhou!');
+const setUserHeader = user => {
+  document.getElementById('user-name').textContent = user.name || user.email || 'Usuário';
+  document.getElementById('user-photo').src = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'U')}`;
+};
+
+const jwtDecode = () => {
+  const token = localStorage.getItem('token').split('.')[1];
+  const user = JSON.parse(atob(token));
+  setUserHeader(user);
+  console.log(user);
+}
+
+if (window.location.pathname.includes('home.html')) {
+  jwtDecode();
+}
+
+if (window.location.pathname.includes('index.html')) {
+  const form = document.getElementById('loginForm');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      api
+        .post('/login', {
+          user: email,
+          psw: password
+        })
+        .then(res => {
+          localStorage.setItem('token', res.data.token);
+          window.location.href = './home.html';
+        })
+        .catch(err => {
+          alert('Login inválido!');
+        });
+    });
   }
-});
+}
+
+const getPosts = () =>{
+  api
+  .get ('posts',{
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+    })
+  .then (res =>{
+    console.log(res);
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
