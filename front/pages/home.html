@@ -5,19 +5,24 @@
   <meta charset="UTF-8">
   <title>Home</title>
   <link rel="stylesheet" href="../styles/style.css">
+  <link rel="icon" type="image/png" href="../../docs/icon.png">
 </head>
 
 <body>
 
   <header class="header">
+    <img src="../../docs/logo.png" alt="Logo" class="logo">
     <div class="user-info">
-      <h2 id="user-name"></h2>
-      <img id="user-photo" src="" alt="Foto de Perfil" class="profile-photo">
+      <button onclick="window.location.href='index.html'" style="margin-bottom:20px;">Sair</button>
+      <h2 id="nome"></h2>
+      <img id="foto" src="" alt="Foto de Perfil" class="foto">
+
     </div>
   </header>
 
   <div class="home">
     <h1>Bem-vindo(a)!</h1>
+    <div id="posts"></div>
   </div>
   <script type="module" src="../js/script.js"></script>
 </body>

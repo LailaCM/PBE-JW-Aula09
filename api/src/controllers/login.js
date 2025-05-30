@@ -12,8 +12,8 @@ const Login = (req, res) => {
         const token = jsonwebtoken.sign(
             {
                 id: crypto.randomUUID(),
-                name: "Fulano da Silva",
-                avatar: "https://cdn-icons-png.flaticon.com/128/1326/1326377.png"
+                name: "Pandinha da Silva",
+                avatar: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQq3Y90BwP4UmjAv73YqyJt4ium_ad4ZJ86IRFMKYk8xK-Mg8Uj"
             },
             process.env.SECRET_JWT,
             { expiresIn: "2min" }

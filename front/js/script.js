@@ -1,8 +1,8 @@
 import api from './api.js';
 
 const setUserHeader = user => {
-  document.getElementById('user-name').textContent = user.name || user.email || 'Usuário';
-  document.getElementById('user-photo').src = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'U')}`;
+  document.getElementById('nome').textContent = user.name || user.email || 'Usuário';
+  document.getElementById('foto').src = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'U')}`;
 };
 
 const jwtDecode = () => {
@@ -10,10 +10,6 @@ const jwtDecode = () => {
   const user = JSON.parse(atob(token));
   setUserHeader(user);
   console.log(user);
-}
-
-if (window.location.pathname.includes('home.html')) {
-  jwtDecode();
 }
 
 if (window.location.pathname.includes('index.html')) {
@@ -39,17 +35,41 @@ if (window.location.pathname.includes('index.html')) {
   }
 }
 
-const getPosts = () =>{
+const renderPosts = posts => {
+  const container = document.getElementById('posts');
+  if (!container) return;
+  container.innerHTML = '';
+  posts.forEach(post => {
+    const div = document.createElement('div');
+    div.className = 'post';
+    div.innerHTML = `
+      <h3>${post.title}</h3>
+      <p>${post.summary}</p>
+      <span>♡ ${post.likes} | 𓂀 ${post.views}</span>
+    `;
+    container.appendChild(div);
+  });
+};
+
+const getPosts = () => {
   api
-  .get ('posts',{
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
-    }
+    .get('/posts')
+    .then(res => {
+      renderPosts(res.data);
     })
-  .then (res =>{
-    console.log(res);
-  })
-  .catch(err => {
-    console.log(err)
-  })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+if (window.location.pathname.includes('home.html')) {
+  jwtDecode();
+  getPosts();
+  setTimeout(() => {
+    localStorage.removeItem('token');
+    const postsContainer = document.getElementById('posts');
+    if (postsContainer) postsContainer.innerHTML = '';
+    alert('Sessão expirada! Faça login novamente.');
+    window.location.href = './index.html';
+  }, 120000);
 }
