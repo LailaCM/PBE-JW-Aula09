@@ -1,4 +1,4 @@
-# Autenticação JWT - Exemplo Senai
+# Autenticação JWT
 
 Projeto Fullstack com Node.js, Express e autenticação JWT para controle de login e visualização de posts.
 
